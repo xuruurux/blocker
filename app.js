@@ -57,7 +57,7 @@ app.get('/signin',function(req,res){
 
 app.post('/signin',function(req,res){
   //检测该用户名是否已经存在于 users 数组中
-  if((users.indexOf(req.body.name) != -1)||(req.body.room == "")||(req.body.name == "")){
+  if((users.indexOf(req.body.name) != -1)||(req.body.room == "")||(req.body.name == "")||(groups.indexOf(req.body.room) != -1)){
     //存在，则不允许登陆
     res.redirect('/signin');
   } else {
@@ -206,7 +206,7 @@ io.sockets.on('connection',function(socket){
 
     groupMapping[data.room].forEach(function(user)
     {
-      var s = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26];
+      var s = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27];
       cardMapping[user] = new Array;
       while (s.length) cardMapping[user].push(s.splice(Math.random() * s.length, 1));
 
@@ -257,6 +257,18 @@ io.sockets.on('connection',function(socket){
     clients.forEach(function(client){
       if(groupMapping[userMapping[data.user]].indexOf(client.name) != -1){
         client.emit('refresh_board',{color:groupMapping[userMapping[data.user]].indexOf(data.user),card:data.card,pos:data.pos});
+      if((cardMapping[groupMapping[userMapping[data.user]][groupMapping[userMapping[data.user]].length-1]].length == 0)
+        &&(groupMapping[userMapping[data.user]][groupMapping[userMapping[data.user]].length-1]==data.user))
+        {
+          var clients = io.sockets.clients();
+          clients.forEach(function(client){
+            if(groupMapping[userMapping[data.user]].indexOf(client.name) != -1){
+              client.emit('game_end',{user:groupMapping[userMapping[data.user]]});
+              client.emit('waiting');
+            }
+          });
+          return;
+        }
         if(client.name==data.user)
         {
           for (var i=0;((i<5)&&((cardinhandMapping[client.name][i]-data.card) != 0));i++);
@@ -286,13 +298,7 @@ io.sockets.on('connection',function(socket){
         }
       }
     });
-    //var a = groupMapping[userMapping[data.user]][groupMapping[userMapping[data.user]].length-1];
-    if(cardMapping[groupMapping[userMapping[data.user]][groupMapping[userMapping[data.user]].length-1]].length == 0)
-    {
-      console.log("end");
-    }
   });
-
 });
 
 server.listen(app.get('port'), function(){

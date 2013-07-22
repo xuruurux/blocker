@@ -27,8 +27,9 @@ $(document).ready(function(){
 
   var card = ['1','2','3','4','5','6','7','8','9',
               'A','B','C','D','E','F','G','H','I',
-              '!','@','#','$','%','^','&','*','+'];
-  var player_color = ['#ff0000','#0ff000','#00ff00','#000ff0','#0000ff'];
+              '!','@','#','$','%','^','&','*','+',
+              ' '];
+  var player_color = ['#ff0000','#ffd700','#4169e1','#00ff00','#a020f0'];
   //发送用户上线信号
   socket.emit('online',{user:from,room:group});
 
@@ -139,6 +140,46 @@ $(document).ready(function(){
     $('#card_pond').css('display','block');
   });
 
+  socket.on('game_end',function(data){
+    var finalscore = [];
+    for(var index in card_set_Mapping)
+    {
+      finalscore[index]=$('#score_num'+index).text();
+    }
+    var winner,scoremin=0xff;
+    for(var index in finalscore)
+    {
+      if(finalscore[index]<=scoremin)
+      {
+        if(finalscore[index]==scoremin)
+        {
+          var temp_score = [0,0,0,0];
+          if(card_changed[winner]!=null)
+          {
+            for(var n in card_changed[winner])
+            {
+              temp_score[card_changed[winner][n].slice(0,1)]++;
+            }
+            temp_score.sort(sortNumber);
+          }
+          var temp_winner_score = temp_score[0];
+          if(card_changed[index]!=null)
+          {
+            for(var n in card_changed[index])
+            {
+              temp_score[card_changed[index][n].slice(0,1)]++;
+            }
+            temp_score.sort(sortNumber);
+          }
+          if (temp_winner_score>temp_score[0]) winner=index;
+        }
+        else
+          winner=index;
+      }
+    }
+    alert(data.user[winner]+'win');
+  });
+
   socket.on('refresh_board',function(data){
     if((card_set[data.color] == null)||(card_set_num[data.color] == 0))
     {
@@ -203,6 +244,9 @@ $(document).ready(function(){
         }
       }
       set_to_merge.sort(sortNumber);
+      if(set_to_merge[3]==set_to_merge[2]) set_to_merge[3]=0xff;
+      if(set_to_merge[2]==set_to_merge[1]) set_to_merge[2]=0xff;
+      if(set_to_merge[1]==set_to_merge[0]) set_to_merge[1]=0xff;
       if(set_to_merge[0]==0xff)
       {
         card_set[data.color][data.pos] = card_set_num[data.color];
@@ -231,16 +275,7 @@ $(document).ready(function(){
     }
     for(var index in card_set_Mapping)
     {
-      var temp_score = [0,0,0,0,0];
-      if(card_changed[index]!=null)
-      {
-        for (var n in card_changed[index])
-        {
-          temp_score[card_changed[index][n].slice(0,1)]++;
-        }
-        temp_score.sort(sortNumber);
-      }
-      $('#score_num'+index).html(card_set_Mapping[index].length+temp_score[4]);
+      $('#score_num'+index).html(card_set_Mapping[index].length);
     }
     gameboard_color[data.pos]=data.color;
     $("#pad"+data.pos).css('background-color',player_color[data.color]);
@@ -248,7 +283,6 @@ $(document).ready(function(){
   });
 
   socket.on('gameboard_init',function(data){
-    
     my_color=player_color[data.color];
     card_select=0xff;
     card_set_num[data.color]=0;
@@ -324,6 +358,14 @@ $(document).ready(function(){
             for(var y=0;y<3;y++)
             {
               checkpadvalid(Math.floor((card_select-18)/3)*3+x+1,Math.floor((card_select-18)%3)*3+y+1);
+            }
+        }
+        if(card_select==27)
+        {
+          for(var x=1;x<10;x++)
+            for(var y=1;y<10;y++)
+            {
+              checkpadvalid(x,y);
             }
         }
       });
