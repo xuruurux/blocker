@@ -1,0 +1,251 @@
+#contain{
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+#game_area{
+  position: absolute;
+  top: 0;
+  right: 300px;
+  bottom: 0;
+  left: 0;
+  overflow:auto;
+}
+#game_board{
+  position: absolute;
+  top: 0;
+  width: 1000px;
+  height: 1000px;
+  border-style:solid;
+  border-color:black;
+  margin:0 auto;
+}
+#content{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 200px;
+  width: 300px;
+}
+#content_show{
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 75px;
+  right: 0;
+}
+#content_saying{
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 75px;
+  right: 0;
+}
+#users_online{
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 225px;
+  width: 300px;
+}
+#toolbar{
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 30px;
+  background: #aaa;
+  background: rgba(0,0,0,0.2);
+}
+#game_start{
+  position: absolute;
+  width: 255px;
+  height: 25px;
+  right: 25px;
+  bottom: 200px;
+  cursor: pointer;
+  text-align: center;
+  line-height: 25px;
+  font-size: 12px;
+  font-weight: bolder;
+  font-family: "幼圆","微软雅黑","黑体","宋体";
+  color: #eee;
+  background: #666;
+  background: rgba(0,0,0,0.5);
+}
+#usersbar{
+  position: absolute;
+  top: 5px;
+  left: 0;
+  right: 0;
+  bottom: 5px;
+  background: #fff;
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+  -webkit-box-shadow:-2px 2px 5px #292929;
+  -moz-box-shadow:-2px 2px 5px #292929;
+  box-shadow:-2px 2px 5px #292929;
+}
+#user_label{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height:30px;
+  border-top-left-radius: 5px;
+  background: #aaa;
+  background: rgba(0,0,0,0.4);
+  text-align: center;
+  line-height: 30px;
+  font-weight: bold;
+  color: #eee;
+}
+#users_list{
+  position: absolute;
+  top: 30px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-bottom-left-radius: 5px;
+  padding: 10px 0 10px 10px;
+}
+#users_list ul{
+  width:100%;
+  height:100%;
+  list-style: none;
+  overflow-x:hidden;
+  overflow-y:scroll;
+}
+#users_list ul li{
+  width: 255px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  height: 25px;
+  line-height: 25px;
+  padding: 0 5px;
+  cursor: pointer;
+  border-bottom: 1px dashed #666;
+}
+#users_list ul li:hover{
+  background: #eee;
+  background:  rgba(0,0,0,0.2);
+  border-radius: 5px;
+}
+.sayingto{
+  background: #ddd;
+  background: rgba(0,0,0,0.3);
+  border-radius: 5px;
+  color: #39F;
+}
+#contents{
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
+  background: #eee;
+  background: rgba(0,0,0,0.1);
+  border-radius: 5px;
+  padding: 10px;
+  overflow: auto;
+}
+#input_content{
+  position: absolute;
+  top: 0px;
+  left: 5px;
+  right: 5px;
+  bottom: 30px;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  outline: none;
+  padding: 10px;
+  overflow:auto;
+  background: #eee;
+  background: rgba(0,0,0,0.1);
+}
+#sayingto{
+  background: #999;
+  background: rgba(0,0,0,0.3);
+  position: absolute;
+  left: 5px;
+  right: 60px;
+  bottom: 5px;
+  height: 25px;
+  line-height: 25px;
+  padding: 0 10px;
+  border-bottom-left-radius: 5px;
+}
+#from
+{
+  color:#F90;
+  font-weight:bold;
+}
+#to{
+  color:#39F;
+  font-weight:bold
+}
+#say{
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  height: 25px;
+  width: 55px;
+  border-bottom-right-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  line-height: 25px;
+  font-size: 12px;
+  font-weight: bolder;
+  font-family: "幼圆","微软雅黑","黑体","宋体";
+  color: #eee;
+  background: #666;
+  background: rgba(0,0,0,0.5);
+}
+#card_pond
+{
+  position: absolute;
+  top:900px;
+  left:1050px;
+  width:500px;
+  height:100px;
+  border-style:solid;
+  border-color:black;
+}
+#score_pond
+{
+  position: absolute;
+  top:0px;
+  left:1050px;
+  bottom:100px;
+  width:500px;
+  border-style:solid;
+  border-color:black;
+}
+.score_name
+{
+  height:100px;
+  width:500px;
+  border-bottom-style:solid;
+  border-color:black;
+}
+.score
+{
+  position: absolute;
+  right:0px;
+  width:100px;
+  height:25px;
+}
+.pad
+{
+  width:100px;
+  height:100px;
+  border-style:solid;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 36px;
+  font-weight: bolder;
+  font-family: "幼圆","微软雅黑","黑体","宋体";
+}
